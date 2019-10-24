@@ -1,18 +1,29 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+  <a-auto-complete
+    :dataSource="dataSource"
+    style="width: 90vw"
+    placeholder="Search a term"
+    :filterOption="filterOption"
+  />
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
 export default {
   name: "home",
-  components: {
-    HelloWorld
+  data() {
+    return {
+      dataSource: ["eat", "sleep", "shower"]
+    };
+  },
+  methods: {
+    filterOption(input, option) {
+      return (
+        option.componentOptions.children[0].text
+          .toUpperCase()
+          .indexOf(input.toUpperCase()) >= 0
+      );
+    }
   }
 };
 </script>
